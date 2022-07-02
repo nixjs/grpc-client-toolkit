@@ -1,0 +1,63 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+ .content{
+  padding-top: 2rem;
+  padding-bottom: 2rem
+ }
+
+.heading {
+  font-size: 4.8rem;
+  margin-bottom: 2rem;
+}
+.subHeading {
+  font-size: 2.5rem;
+  line-height: 1.5em;
+  margin-bottom: 1.5rem;
+}
+
+.description {
+  line-height: 1.55;
+}
+
+@media screen and (max-width: 999px) {
+ .heading {
+  font-size: 3rem;
+}
+.subHeading {
+  font-size: 1.5rem;
+}
+}@media screen and (max-width: 999px) {
+  .buttons {
+    margin-top: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .content {
+    text-align: center;
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+  }
+  .code-preview {
+    font-size: 18px;
+    padding: 2rem 4rem;
+    border-radius: 10px;
+    box-shadow: 0px 10px 50px rgb(0 0 0 / 10%);
+    display: none;
+    max-width: 343px;
+    width: 100%;
+    height: 157px;
+  }
+  .subHeading {
+    margin-bottom: 2.5rem;
+  }
+  .description {
+    padding: 0 40vh;
+  }
+  .buttons {
+    margin-top: 2rem;
+  }
+}

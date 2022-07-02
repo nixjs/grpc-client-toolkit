@@ -1,0 +1,72 @@
+// SVG base fills
+.cls-1 {
+  fill: rgb(255, 234, 160);
+}
+.cls-2 {
+  fill: #7fc2e2;
+}
+.cls-3 {
+  fill: #fff7f7;
+}
+.cls-4 {
+  fill: #131413;
+}
+.cls-5 {
+  fill: #fff;
+}
+.cls-6 {
+  fill: #b28f82;
+}
+.cls-7 {
+  fill: #231f20;
+}
+.cls-8 {
+  fill: #126f94;
+}
+
+// calling animations
+.eye {
+  animation: squeeze 2.4s infinite;
+}
+.nose {
+  animation: nose 2s infinite ease;
+}
+.gopher {
+  transform: translateY(120px);
+  animation: start 0.8s forwards ease-in-out;
+}
+// setting animations
+@keyframes start {
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes nose {
+  80% {
+    transform: none;
+  }
+  83% {
+    transform: translateX(7.5px) scaleX(0.9);
+  }
+  90% {
+    transform: none;
+  }
+  93% {
+    transform: translateX(7.5px) scaleX(0.9);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes squeeze {
+  90% {
+    transform: none;
+    animation-timing-function: ease-in;
+  }
+  93% {
+    transform: translateY(70px) scaleY(0.1);
+  }
+  100% {
+    animation-timing-function: ease-out;
+  }
+}

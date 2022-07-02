@@ -1,0 +1,11 @@
+footer {
+  border-top: 0.125rem solid var(--ifm-footer-border-color);
+}
+
+html[data-theme="light"] {
+  --ifm-footer-border-color: #f3f4f6;
+}
+
+html[data-theme="dark"] {
+  --ifm-footer-border-color: #1f2937;
+}

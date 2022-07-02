@@ -1,0 +1,37 @@
+{
+  "name": "@nixjs/react",
+  "version": "0.0.1",
+  "description": "A react context which helps you to deal with gRPC web.",
+  "sideEffects": false,
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "browser": "lib/esm/index.js",
+  "types": "lib/types/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "url": "https://github.com/nixjs",
+    "name": "nghinv"
+  },
+  "license": "MIT",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "clean": "rimraf lib/*",
+    "build:pre": "run-s clean",
+    "build:cjs": "npx tsc -p tsconfig.cjs.json",
+    "build:esm": "npx tsc -p tsconfig.esm.json",
+    "build": "run-s build:pre build:cjs build:esm",
+    "lint": "eslint 'src/**/*.{ts,tsx}'"
+  },
+  "peerDependencies": {
+    "@nixjs/core": "^0.0.1",
+    "react": ">=16"
+  },
+  "devDependencies": {
+    "react": "^17.0.0"
+  }
+}
