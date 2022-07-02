@@ -1,6 +1,6 @@
 {
   "name": "@nixjs/core",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "gRPC for Web Clients.",
   "sideEffects": false,
   "main": "lib/cjs/index.js",

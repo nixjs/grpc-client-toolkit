@@ -1,6 +1,6 @@
 {
   "name": "@nixjs/types",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Typings for gRPC Web Client.",
   "sideEffects": false,
   "main": "lib/cjs/index.js",
@@ -27,6 +27,5 @@
     "build:esm": "npx tsc -p tsconfig.esm.json",
     "build": "run-s build:pre build:cjs build:esm",
     "lint": "eslint 'src/**/*.{ts,tsx}'"
-  },
-  "dependencies": {}
+  }
 }

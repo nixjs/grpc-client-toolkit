@@ -1,6 +1,6 @@
 {
   "name": "@nixjs/react",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A react context which helps you to deal with gRPC web.",
   "sideEffects": false,
   "main": "lib/cjs/index.js",
