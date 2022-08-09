@@ -19,18 +19,20 @@ export interface HeaderContextInterface {
 }
 
 export type MetadataResponseErrorDetailType = Types.Object<{
+  [x: string]: any;
   code: string;
   message: string;
 }>;
 
 export interface ResponseErrorInterface {
+  [x: string]: any;
   code: grpcWeb.StatusCode | number;
   message: string;
   metadata?: MetadataResponseErrorDetailType;
   original: any;
 }
 
-export type ResponseInterface = Interfaces.ResponseData<any>;
+export type ResponseInterface<T = any> = Interfaces.ResponseData<T>;
 
 export interface MetadataResponseInterface {
   "content-type"?: string;

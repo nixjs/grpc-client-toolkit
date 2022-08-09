@@ -1,6 +1,6 @@
 {
   "name": "@nixjs23n6/react",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A react context which helps you to deal with gRPC web.",
   "sideEffects": false,
   "main": "lib/cjs/index.js",
@@ -43,11 +43,11 @@
     "lint": "eslint 'src/**/*.{ts,tsx}'"
   },
   "peerDependencies": {
-    "@nixjs23n6/core": "^1.0.2",
+    "@nixjs23n6/core": "^1.0.5",
     "react": ">=16"
   },
   "devDependencies": {
-    "@nixjs23n6/types": "^1.0.4",
+    "@nixjs23n6/types": "^1.0.5",
     "react": "^17.0.0"
   }
 }
