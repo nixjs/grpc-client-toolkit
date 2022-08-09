@@ -1,0 +1,11 @@
+{
+    "extends": "./tsconfig.esm.json",
+    "compilerOptions": {
+        "outDir": "./lib/cjs",
+        "target": "es6",
+        "module": "commonjs",
+        "importHelpers": true,
+        "noUnusedLocals": false,
+        "strict": false
+    },
+}

@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "ESNext",
+        "noEmit": true,
+        "declaration": true,
+        "sourceMap": true,
+        "noEmitOnError": true,
+        "stripInternal": true,
+        "moduleResolution": "node",
+        "jsx": "react",
+        "strict": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "lib": [
+            "ES6",
+            "DOM",
+            "DOM.Iterable",
+            "ESNext.AsyncIterable"
+        ],
+        "typeRoots": [
+            "node_modules/@types"
+        ]
+    },
+    "include": [
+        "packages/*/*/src"
+    ],
+    "exclude": [
+        "node_modules",
+        "packages/*/*/node_modules"
+    ],
+    "compileOnSave": false
+}

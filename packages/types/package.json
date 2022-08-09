@@ -1,0 +1,45 @@
+{
+  "name": "@nixjs23n6/types",
+  "version": "1.0.4",
+  "description": "Typings for gRPC Web Client.",
+  "sideEffects": false,
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "browser": "lib/esm/index.js",
+  "types": "lib/types/index.d.ts",
+  "keywords": [
+    "grpc",
+    "grpc-web",
+    "grpc-client",
+    "grpc-web-client",
+    "grpc-client-toolkit",
+    "grpc-toolkit",
+    "toolkit",
+    "protobuf",
+    "typescript",
+    "web"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nixjs/grpc-client-toolkit.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "url": "https://github.com/nixjs",
+    "name": "nghinv"
+  },
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "clean": "rimraf lib/*",
+    "build:pre": "run-s clean",
+    "build:cjs": "npx tsc -p tsconfig.cjs.json",
+    "build:esm": "npx tsc -p tsconfig.esm.json",
+    "build": "run-s build:pre build:cjs build:esm",
+    "lint": "eslint 'src/**/*.{ts,tsx}'"
+  }
+}

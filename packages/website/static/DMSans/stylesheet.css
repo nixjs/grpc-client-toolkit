@@ -1,0 +1,66 @@
+@font-face {
+    font-family: 'DM Sans';
+    src: url('DMSans-BoldItalic.woff2') format('woff2'),
+        url('DMSans-BoldItalic.woff') format('woff'),
+        url('DMSans-BoldItalic.ttf') format('truetype'),
+        url('DMSans-BoldItalic.svg#DMSans-BoldItalic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DM Sans';
+    src: url('DMSans-Italic.woff2') format('woff2'),
+        url('DMSans-Italic.woff') format('woff'),
+        url('DMSans-Italic.ttf') format('truetype'),
+        url('DMSans-Italic.svg#DMSans-Italic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DM Sans';
+    src: url('DMSans-Bold.woff2') format('woff2'),
+        url('DMSans-Bold.woff') format('woff'),
+        url('DMSans-Bold.ttf') format('truetype'),
+        url('DMSans-Bold.svg#DMSans-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DM Sans';
+    src: url('DMSans-Medium.woff2') format('woff2'),
+        url('DMSans-Medium.woff') format('woff'),
+        url('DMSans-Medium.ttf') format('truetype'),
+        url('DMSans-Medium.svg#DMSans-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DM Sans';
+    src: url('DMSans-MediumItalic.woff2') format('woff2'),
+        url('DMSans-MediumItalic.woff') format('woff'),
+        url('DMSans-MediumItalic.ttf') format('truetype'),
+        url('DMSans-MediumItalic.svg#DMSans-MediumItalic') format('svg');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DM Sans';
+    src: url('DMSans-Regular.woff2') format('woff2'),
+        url('DMSans-Regular.woff') format('woff'),
+        url('DMSans-Regular.ttf') format('truetype'),
+        url('DMSans-Regular.svg#DMSans-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

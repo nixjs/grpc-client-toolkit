@@ -1,0 +1,334 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+@use "./font";
+@use "./modern-normalize";
+@use "./doc-page";
+@use "./base";
+@use "./admonition";
+@use "./table";
+@use "./code";
+@use "./pagination";
+@use "./markdown";
+@use "./edit-this-page";
+@use "./announcement";
+@use "./toc";
+@use "./doc-sidebar";
+@use "./footer";
+
+:root {
+  --f-display: IonEina, "Helvetica Neue", Helvetica, sans-serif;
+  --f-text: Inter, "Inter UI", Helvetica, Arial, sans-serif;
+  --f-system: apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial,
+    sans-serif;
+  --f-monospace: "SF Mono", "Roboto Mono", Menlo, monospace;
+  --f-serif: "Adobe Caslon", Georgia, Times, "Times New Roman", serif;
+  --f-pro: Söhne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --f-pro-mono: "Söhne Mono", "Roboto Mono", "SF Mono", Menlo, monospace;
+  --f-weight-light: 300;
+  --f-weight-regular: 400;
+  --f-weight-medium: 500;
+  --f-weight-semibold: 600;
+  --f-weight-bold: 700;
+  --f-size-10: 0.625rem;
+  --f-size-11: 0.6875rem;
+  --f-size-12: 0.75rem;
+  --f-size-13: 0.8125rem;
+  --f-size-14: 0.875rem;
+  --f-size-16: 1rem;
+  --f-size-20: 1.25rem;
+  --f-size-24: 1.5rem;
+  --f-size-28: 1.75rem;
+  --f-size-32: 2rem;
+  --f-size-40: 2.5rem;
+  --f-size-48: 3rem;
+  --f-size-56: 3.5rem;
+  --f-size-64: 4rem;
+  --f-size-72: 4.5rem;
+  --f-size-80: 5rem;
+  --f-size-88: 5.5rem;
+  --f-size-96: 6rem;
+  --line-height-solid: 1;
+  --line-height-title: 1.12;
+  --line-height-body: 1.6;
+  --line-height-prose: 1.8;
+  --letter-spacing-dense: -0.04em;
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-solid: 0em;
+  --letter-spacing-wide: 0.04em;
+  --letter-spacing-super: 0.08em;
+  --letter-spacing-extra: 0.16em;
+  --space-0: 0rem;
+  --space-4: 0.25rem;
+  --space-8: 0.5rem;
+  --space-12: 0.75rem;
+  --space-16: 1rem;
+  --space-20: 1.25rem;
+  --space-24: 1.5rem;
+  --space-32: 2rem;
+  --space-40: 2.5rem;
+  --space-48: 3rem;
+  --space-64: 4rem;
+  --space-80: 5rem;
+  --space-96: 6rem;
+  --space-128: 8rem;
+  --space-160: 10rem;
+  --space-192: 12rem;
+  --space-224: 14rem;
+  --space-256: 16rem;
+  --breakpoint-0: 40em;
+  --breakpoint-1: 48em;
+  --breakpoint-2: 64em;
+  --breakpoint-3: 80em;
+  --radius-0: 0px;
+  --radius-6: 6px;
+  --radius-8: 8px;
+  --radius-16: 16px;
+  --radius-24: 24px;
+  --radius-x: 1000px;
+  --border-regular: 1px solid;
+  --border-dashed: 1px dashed;
+  --border-heavy: 2px solid;
+  --shadow-0: 0 0 0 1px transparent;
+  --shadow-1: 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --shadow-2: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 1px 0 rgba(0, 0, 0, 0.04);
+  --shadow-3: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 0 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-4: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  --shadow-5: 0 8px 16px 0 rgba(0, 0, 0, 0.08), 0 4px 8px 0 rgba(0, 0, 0, 0.06);
+  --shadow-6: 0 16px 32px -2px rgba(0, 0, 0, 0.1),
+    0 8px 16px -2px rgba(0, 0, 0, 0.08);
+  --shadow-7: 0 32px 64px -4px rgba(0, 0, 0, 0.12),
+    0 12px 24px -2px rgba(0, 0, 0, 0.06);
+  --shadow-8: 0 48px 96px -8px rgba(0, 0, 0, 0.16),
+    0 24px 48px -4px rgba(0, 0, 0, 0.08);
+  --duration-instantly: 0s;
+  --duration-quickly: 0.15s;
+  --admonition-bar-note-c-bg: #eab308;
+  --admonition-bar-info-c-bg: #2563eb;
+  --admonition-bar-tip-c-bg: #16a34a;
+  --admonition-bar-caution-c-bg: #ea580c;
+  --admonition-bar-danger-c-bg: #be123c;
+  --admonition-link-note-c: #eab308;
+  --admonition-link-info-c: #2563eb;
+  --admonition-link-tip-c: #16a34a;
+  --admonition-link-caution-c: #ea580c;
+  --admonition-link-danger-c: #be123c;
+
+  --ifm-background-color: var(--token-primary-bg-c);
+
+  --ifm-navbar-link-hover-color: initial;
+  --ifm-navbar-padding-vertical: 0;
+  --ifm-navbar-item-padding-vertical: 0;
+
+  --ifm-font-family-base: "Poppins", -apple-system, BlinkMacSystemFont, Inter,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI emoji";
+  --ifm-font-family-monospace: "SFMono-Regular", "Roboto Mono", Consolas,
+    "Liberation Mono", Menlo, Courier, monospace;
+
+  --ifm-menu-link-sublist-icon: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iNiIgdmlld0JveD0iMCAwIDEwIDYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik04Ljk5OTg4IDVMNC45OTk4OCAxTDAuOTk5ODc4IDUiIHN0cm9rZT0iIzAzMDYwQiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K");
+
+  //#region ----------- Z Indices ------------
+  --z-sidebar: 2000;
+  --z-backdrop: 1100;
+  //#endregion
+  // button
+  --ifm-link-color: #17af6e;
+  --ifm-link-hover-color: #0c8a53;
+  --ifm-color-primary: #23bf7b;
+  --ifm-color-primary-dark: #13a968;
+  --ifm-color-secondary: #428bca;
+  --ifm-color-secondary-dark: #3784c8;
+  --ifm-button-color: #ffffff;
+}
+
+html[data-theme="light"] {
+  --token-primary-bg-c: #fff;
+  --token-secondary-bg-c: #fff;
+
+  --ifm-background-surface-color: var(--token-primary-bg-c);
+
+  --ifm-navbar-background-color: var(--token-primary-bg-c);
+  --ifm-navbar-shadow: 0 1px 0 0 #f3f3f3;
+
+  --ifm-heading-color: #35383d;
+  --ifm-code-background: #f6f8fc;
+  --ifm-font-color-base: #232629;
+
+  --dark-section-background-color: #edf2f6;
+  --wdio-link-background-color: rgba(231, 210, 196, 0.3);
+  --ifm-footer-background-color: var(--token-secondary-bg-c);
+}
+
+html[data-theme="dark"] {
+  --token-primary-bg-c: #111827;
+  --token-secondary-bg-c: #080d18;
+
+  --ifm-background-surface-color: var(--token-primary-bg-c);
+
+  --ifm-navbar-background-color: var(--token-primary-bg-c);
+  --ifm-navbar-shadow: 0 1px 0 0 #2f2f2f;
+
+  --ifm-heading-color: white;
+  --ifm-font-color-base: #94a3b8;
+  --ifm-background-color: var(--token-primary-bg-c);
+  --ifm-dropdown-background-color: var(--token-secondary-bg-c);
+
+  --ifm-menu-link-sublist-icon-filter: invert(100%);
+
+  --ifm-hero-background-color: #1c1e21;
+
+  --dark-section-background-color: #23282e;
+
+  --wdio-link-background-color: rgba(157, 152, 152, 0.4);
+  --ifm-footer-background-color: var(--token-primary-bg-c);
+  --ifm-color-primary-contrast-foreground: #1c1e21;
+}
+
+html {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  scroll-padding-top: calc(var(--ifm-navbar-height) + 16px);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+body {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.theme-doc-version-banner {
+  display: none;
+}
+
+.theme-doc-version-badge {
+  display: none;
+}
+
+ion-grid {
+  margin: 1em 0;
+}
+
+figure {
+  margin: 0;
+}
+
+figure > * {
+  display: block;
+  margin: 0 auto;
+}
+
+figure.device {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+figcaption {
+  text-align: center;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+iframe {
+  background-color: rgba(0, 0, 0, 0.02);
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.git-link svg {
+  height: 1em;
+  width: 1em;
+  vertical-align: -0.1em;
+}
+.git-link path {
+  fill: currentColor;
+}
+
+.cordova-ee-card {
+  max-width: 100%;
+}
+
+.cordova-ee-img {
+  width: 50px;
+  float: left;
+  margin-right: 20px;
+}
+
+.native-ee-detail {
+  float: right;
+  cursor: pointer;
+}
+
+.cordova-ee-card p {
+  margin: 1rem 0 0;
+}
+
+.section {
+  padding: 4.5rem 0 5rem;
+  width: 100%;
+}
+
+.section .title {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.section .description {
+  font-size: 1.5rem;
+  line-height: 1.68em;
+  margin-bottom: 35px;
+}
+
+.main-wrapper .container p > a,
+.main-wrapper .markdown p > a {
+  background-color: var(--wdio-link-background-color);
+  border-bottom: 1px solid var(--ifm-color-primary);
+  color: var(--wdio-link-color);
+  padding: 2px;
+  text-decoration: none !important;
+}
+
+.darkSection {
+  background-color: var(--dark-section-background-color);
+}
+
+.main-wrapper a {
+  line-height: 1.5;
+}
+.main-wrapper a:not(.button):hover {
+  text-decoration: underline;
+  transition: color var(--ifm-transition-fast)
+    var(--ifm-transition-timing-default);
+}
+
+.theme-back-to-top-button {
+  &::after {
+    -webkit-mask: var(--ifm-menu-link-sublist-icon) 48% / 1rem 1rem no-repeat !important;
+    mask: var(--ifm-menu-link-sublist-icon) 48% / 1rem 1rem no-repeat !important;
+  }
+}
+
+.clean-btn::after {
+  background: var(--ifm-menu-link-sublist-icon) 50% 50%/0.875rem 0.5rem
+    no-repeat !important;
+}
+
