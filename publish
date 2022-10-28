@@ -1,0 +1,19 @@
+#!/bin/bash
+PROJECT_ROOT="./packages"
+BASE_UI="grpc-"
+
+NODE_VERSION=$(node -p -e "require('./lerna.json').version")
+
+echo -e "\033[0;34mCurrent Version: $NODE_VERSION"
+
+yarn build
+
+for dir in $PROJECT_ROOT/*/; do
+    basename=`basename "$dir"`
+    if [ $basename != "website" ]
+    then
+        text=$(echo -e "\033[0;32mPublishing the $basename packages.")
+        echo $text
+        yarn workspace @nixjs23n6/$BASE_UI$basename publish --force --new-version $NODE_VERSION
+    fi
+done;

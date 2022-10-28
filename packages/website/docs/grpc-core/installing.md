@@ -8,18 +8,18 @@ To get started, use the following command:
 
 ## 🚀 Install with npm
 
-`npm install @nixjs23n6/core`
+`npm install @nixjs23n6/grpc-core`
 
 ## 🚀 Install with yarn
 
-`yarn add @nixjs23n6/core`
+`yarn add @nixjs23n6/grpc-core`
 
 ## Setup & Usage
 
 ### Quick Setup
 
 ```javascript
-import { Client } from "@nixjs23n6/core";
+import { Client } from "@nixjs23n6/grpc-core";
 import * as pbjs from "google-protobuf/google/protobuf/empty_pb";
 import { ExampleClient } from "@example-proto/example_grpc_web_pb";
 
@@ -37,7 +37,7 @@ grpcInstance
 You can intercept requests or responses before they are handled by then or catch.
 
 ```javascript
-import { Client } from "@nixjs23n6/core";
+import { Client } from "@nixjs23n6/grpc-core";
 import * as pbjs from "google-protobuf/google/protobuf/empty_pb";
 import { ExampleClient } from "@example-proto/example_grpc_web_pb";
 

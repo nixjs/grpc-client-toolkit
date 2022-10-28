@@ -6,12 +6,12 @@ gRPC for Web Clients.
 
 Install these dependencies:
 
-`yarn add @nixjs23n6/core`
+`yarn add @nixjs23n6/grpc-core`
 
 ### Setup & Usage
 
 ```javascript
-import { Client } from "@nixjs23n6/core";
+import { Client } from "@nixjs23n6/grpc-core";
 import * as pbjs from "google-protobuf/google/protobuf/empty_pb";
 import { ExampleClient } from "@example-proto/example_grpc_web_pb";
 
@@ -54,13 +54,13 @@ A react context which helps you to deal with gRPC web.
 
 Install these dependencies:
 
-`yarn add @nixjs23n6/core @nixjs23n6/react`
+`yarn add @nixjs23n6/grpc-core @nixjs23n6/grpc-react`
 
 ### Setup
 
 ```javascript
 import React, { FC } from 'react';
-import { GRPCProvider, ClientServiceSourceProps } from '@nixjs23n6/react'
+import { GRPCProvider, ClientServiceSourceProps } from '@nixjs23n6/grpc-react'
 import { ExampleClient1 } from '@example-proto/example_grpc_web_pb1'
 import { ExampleClient2 } from '@example-proto/example_grpc_web_pb2'
 import { ExampleClient3 } from '@example-proto/example_grpc_web_pb3'
@@ -112,7 +112,7 @@ export const App: FC<AppPropArg> = () => {
 
 ```javascript
 import React, { FC, useEffect } from 'react';
-import { useGRPC } from '@nixjs23n6/react'
+import { useGRPC } from '@nixjs23n6/grpc-react'
 import * as pbjs from 'google-protobuf/google/protobuf/empty_pb'
 
 interface GRPCPropArg = {}

@@ -1,4 +1,4 @@
-# @nixjs23n6/core
+# @nixjs23n6/grpc-core
 
 Core for gRPC Web Client.
 
@@ -6,7 +6,7 @@ Core for gRPC Web Client.
 
 Install these dependencies:
 
-`yarn add @nixjs23n6/core`
+`yarn add @nixjs23n6/grpc-core`
 
 ## Reference & Example
 

@@ -8,11 +8,11 @@ A react context which helps you to deal with gRPC web. To get started, use the f
 
 ## 🚀 Install with npm
 
-`npm install @nixjs23n6/core @nixjs23n6/react`
+`npm install @nixjs23n6/grpc-core @nixjs23n6/grpc-react`
 
 ## 🚀 Install with yarn
 
-`yarn add @nixjs23n6/core @nixjs23n6/react`
+`yarn add @nixjs23n6/grpc-core @nixjs23n6/grpc-react`
 
 ## Setup & Usage
 
@@ -20,7 +20,7 @@ A react context which helps you to deal with gRPC web. To get started, use the f
 
 ```javascript
 import React, { FC } from 'react';
-import { GRPCProvider, ClientServiceSourceProps } from '@nixjs23n6/react'
+import { GRPCProvider, ClientServiceSourceProps } from '@nixjs23n6/grpc-react'
 import { ExampleClient1 } from '@example-proto/example_grpc_web_pb1'
 import { ExampleClient2 } from '@example-proto/example_grpc_web_pb2'
 import { ExampleClient3 } from '@example-proto/example_grpc_web_pb3'
@@ -71,7 +71,7 @@ export const App: FC<AppPropArg> = () => {
 
 ```javascript
 import React, { FC, useEffect } from 'react';
-import { useGRPC } from '@nixjs23n6/react'
+import { useGRPC } from '@nixjs23n6/grpc-react'
 import * as pbjs from 'google-protobuf/google/protobuf/empty_pb'
 
 interface GRPCPropArg = {}

@@ -72,27 +72,27 @@ Supports connect the gRPC Service Promises and Callbacks.
 **Callback:**
 
 ```javascript
-import { Client } from '@nft-marketplace2/grpc-client'
-import { BlockchainClient } from '@nft-marketplace2/blockchain-proto/blockchain/blockchain_grpc_web_pb'
+import { Client } from "@nixjs23n6/grpc-core";
+import { ExampleClient } from "@example-proto/example_grpc_web_pb";
 
 const instance = new Client({
     url: 'https://example.nx'
 })
 
-instance.connect(BlockchainClient, false)
+instance.connect(ExampleClient, false)
 ```
 
 **Promise:**
 
 ```javascript
-import { Client } from '@nft-marketplace2/grpc-client'
-import { BlockchainPromiseClient } from '@nft-marketplace2/blockchain-proto/blockchain/blockchain_grpc_web_pb'
+import { Client } from "@nixjs23n6/grpc-core";
+import { ExampleClient } from "@example-proto/example_grpc_web_pb";
 
 const instance = new Client({
     url: 'https://example.nx'
 })
 
-instance.connect(BlockchainPromiseClient)
+instance.connect(ExampleClient)
 ```
 
 ### `connected`

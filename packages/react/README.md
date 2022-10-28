@@ -1,4 +1,4 @@
-# @nixjs23n6/react
+# @nixjs23n6/grpc-react
 
 A react context which helps you to deal with gRPC web
 
@@ -6,7 +6,7 @@ A react context which helps you to deal with gRPC web
 
 Install these dependencies:
 
-`yarn add @nixjs23n6/react`
+`yarn add @nixjs23n6/grpc-react`
 
 ## Reference & Example
 
