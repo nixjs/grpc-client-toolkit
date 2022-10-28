@@ -10,10 +10,14 @@ yarn build
 
 for dir in $PROJECT_ROOT/*/; do
     basename=`basename "$dir"`
-    if [ $basename != "website" ]
-    then
-        text=$(echo -e "\033[0;32mPublishing the $basename packages.")
-        echo $text
-        yarn workspace @nixjs23n6/$BASE_UI$basename publish --force --new-version $NODE_VERSION
+    if [ $basename != "grpc-website"]
+        then
+            text=$(echo -e "\033[0;32mPublishing the $basename packages.")
+            echo $text
+            if [ $basename == 'types']
+                then
+                    yarn workspace @nixjs23n6/$BASE_UI$basename publish --force --new-version $NODE_VERSION
+            else 
+                yarn workspace @nixjs23n6/$basename publish --force --new-version $NODE_VERSION
     fi
 done;
