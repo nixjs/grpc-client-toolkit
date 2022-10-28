@@ -1,6 +1,6 @@
 # @nixjs23n6/types
 
-Typings for gRPC Web Client.
+Typings for web.
 
 ## Install
 
