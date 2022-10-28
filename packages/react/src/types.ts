@@ -4,7 +4,7 @@ import {
   HeaderConfigInterface,
   MetadataInterface,
   ResponseInterface,
-} from "@nixjs23n6/core";
+} from "@nixjs23n6/grpc-core";
 
 export interface ClientConfiguration {
   url: string;

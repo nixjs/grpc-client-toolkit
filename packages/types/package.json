@@ -37,8 +37,8 @@
   "scripts": {
     "clean": "rimraf lib/*",
     "build:pre": "run-s clean",
-    "build:cjs": "npx tsc -p tsconfig.cjs.json",
-    "build:esm": "npx tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
     "build": "run-s build:pre build:cjs build:esm",
     "lint": "eslint 'src/**/*.{ts,tsx}'"
   }
