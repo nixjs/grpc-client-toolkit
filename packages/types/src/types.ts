@@ -8,4 +8,8 @@ export declare namespace Types {
   export type Class = { new (...args: any[]): any };
 
   export type Brand<K, T> = K & { __brand: T };
+
+  export type Deferrable<T> = {
+    [K in keyof T]: T[K];
+  };
 }

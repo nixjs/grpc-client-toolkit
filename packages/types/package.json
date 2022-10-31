@@ -1,6 +1,6 @@
 {
   "name": "@nixjs23n6/types",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Typings for gRPC Web Client.",
   "sideEffects": false,
   "main": "lib/cjs/index.js",
