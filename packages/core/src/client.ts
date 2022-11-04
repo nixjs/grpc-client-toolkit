@@ -1,5 +1,6 @@
 import grpcWeb from "grpc-web";
 import { Errors, BaseErrors } from "@nixjs23n6/types";
+import { Objectify } from "@nixjs23n6/objectify";
 import {
   HeaderConfigInterface,
   HeaderContextInterface,
@@ -8,7 +9,6 @@ import {
   ResponseErrorInterface,
 } from "./types";
 import { getResponseErrorParser, getMethods } from "./utils";
-import { merge } from "./merge";
 import { BaseClient } from "./baseClient";
 import { ERROR } from "./error";
 
@@ -75,7 +75,7 @@ export class Client extends BaseClient {
     ) {
       this.instance = new this._ServiceClient(config.url);
     }
-    this.config = merge(this.config, config);
+    this.config = Objectify.merge(this.config, config);
     this._metadata = this.config.metadata ? this.config.metadata : {};
   }
 
@@ -222,7 +222,7 @@ export class Client extends BaseClient {
       const { methodName, metadata, params } = context;
       let ourMetadata = metadata;
       if (metadataOverride) {
-        ourMetadata = merge(metadata, metadataOverride);
+        ourMetadata = Objectify.merge(metadata, metadataOverride);
       }
       // Response
       if (this._isServiceClientPromise) {
@@ -283,7 +283,7 @@ export class Client extends BaseClient {
         }
       }
       if (metadata) {
-        this._metadata = merge(this._metadata, metadata);
+        this._metadata = Objectify.merge(this._metadata, metadata);
       }
       const context: HeaderContextInterface = {
         methodName,

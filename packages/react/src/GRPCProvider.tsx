@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Types, BaseErrors } from "@nixjs23n6/types";
+import { Objectify } from "@nixjs23n6/objectify";
 import {
   Client,
   HeaderConfigInterface,
   MetadataInterface,
-  merge,
 } from "@nixjs23n6/grpc-core";
 import {
   ClientConfiguration,
@@ -162,7 +162,7 @@ export const GRPCProvider: React.FC<
       for (let index = 0; index < ClientServices.length; index++) {
         const client = ClientServices[index];
 
-        const theirConfig = merge(
+        const theirConfig = Objectify.merge(
           {
             url,
             ClientServices,
