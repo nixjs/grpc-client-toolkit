@@ -386,7 +386,12 @@ export class Client extends BaseClient {
         metadata,
       }
     );
-    this.log(`\t%c✨Response`, `color: #6BCB77; font-size:14px`, response);
+    this.log(
+      `\t%c✨Response`,
+      `color: #6BCB77; font-size:14px`,
+      response,
+      response && response?.toObject()
+    );
     this.log("💧\n\n\n\n\n\n");
   }
 
