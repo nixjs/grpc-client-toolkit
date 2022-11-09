@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Types, BaseErrors } from "@nixjs23n6/types";
+import { Types, BaseErrors, Interfaces } from "@nixjs23n6/types";
 import { Objectify } from "@nixjs23n6/objectify";
 import {
   Client,
@@ -29,7 +29,11 @@ export const createInstance = ({
   ClientService,
   storeType = "localStorage",
   storeKey = "accessToken",
-}: ClientConfiguration & { ClientService: any }): InstanceStateInterface => {
+  logger,
+}: ClientConfiguration & {
+  ClientService: any;
+  logger?: Interfaces.Logger;
+}): InstanceStateInterface => {
   const client = createClient({ url, metadata });
 
   client.connect(ClientService, promiseType);
@@ -146,6 +150,7 @@ export const GRPCProvider: React.FC<
   ClientConfiguration & {
     children: React.ReactNode;
     ClientServices: ClientServiceSourceProps[];
+    logger?: Interfaces.Logger;
   }
 > = ({
   children,
@@ -155,6 +160,7 @@ export const GRPCProvider: React.FC<
   metadata,
   storeType = "localStorage",
   storeKey = "accessToken",
+  logger,
 }) => {
   const GRPCContextValue: Types.Object<InstanceStateInterface> =
     React.useMemo(() => {
@@ -176,6 +182,7 @@ export const GRPCProvider: React.FC<
 
         instances[client.key] = createInstance({
           ClientService: client.source,
+          logger,
           ...theirConfig,
         });
       }

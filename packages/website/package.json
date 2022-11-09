@@ -1,6 +1,6 @@
 {
   "name": "@nixjs23n6/website",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",

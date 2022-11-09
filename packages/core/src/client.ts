@@ -1,5 +1,5 @@
 import grpcWeb from "grpc-web";
-import { Errors, BaseErrors } from "@nixjs23n6/types";
+import { Errors, BaseErrors, Interfaces } from "@nixjs23n6/types";
 import { Objectify } from "@nixjs23n6/objectify";
 import {
   HeaderConfigInterface,
@@ -28,8 +28,8 @@ export class Client extends BaseClient {
   configured: boolean; // config interceptors for request and response
   listMethods: string[] = []; // List methods in gRPC service
 
-  constructor(config: HeaderConfigInterface) {
-    super(config);
+  constructor(config: HeaderConfigInterface, logger?: Interfaces.Logger) {
+    super(config, logger);
     this._metadata = config.metadata || {};
     this.configured = false;
     this._connected = false;
@@ -65,6 +65,8 @@ export class Client extends BaseClient {
     this.listMethods = getMethods(this.instance);
     this._isServiceClientPromise = promiseType;
     this.connected = true;
+    this.log(`%r🚀Methods:`, `color: #2192FF; font-size:14px`);
+    this.log(this.listMethods);
   }
 
   // Specify config defaults that will be applied to every request. [Optional]
@@ -86,6 +88,10 @@ export class Client extends BaseClient {
         this.setConfig(config);
       }
     }
+    this.log(
+      `%r🚀Established connection successfully to Logger`,
+      `color: #2192FF; font-size:14px`
+    );
     this.configured = true;
   }
 
@@ -165,6 +171,8 @@ export class Client extends BaseClient {
     response: any,
     resolve: (args: ResponseInterface) => void
   ) {
+    this.log(`%c✨Response - Success \n\n`, `color: #6BCB77; font-size:14px`);
+    this.log(response);
     resolve({
       status: "SUCCESS",
       data: this.configured ? this._responseFulfilled(response) : response,
@@ -181,6 +189,8 @@ export class Client extends BaseClient {
     resolve: (args: ResponseInterface) => void,
     reject: (args: any) => void
   ) {
+    this.log(`%c🦠Response - Error \n\n`, `color: #FF6B6B; font-size:14px`);
+    this.log(error);
     await this._interceptorResponseHandler(
       context,
       error,
@@ -268,6 +278,11 @@ export class Client extends BaseClient {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve, reject) => {
       let headerError: any = null;
+      this.log(
+        `%r🚀Request - ${methodName} \n\n`,
+        `color: #2192FF; font-size:14px`
+      );
+      this.log({ params, metadata });
       if (!this.hasMethod(methodName)) {
         headerError = BaseErrors.ERROR.METHOD_NOT_FOUND.format({
           name: methodName,
