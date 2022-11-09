@@ -65,10 +65,14 @@ export class Client extends BaseClient {
     this.listMethods = getMethods(this.instance);
     this._isServiceClientPromise = promiseType;
     this.connected = true;
-    this.log(`%c<-----------><----------->`, `color: #2192FF; font-size:14px`);
-    this.log(`» %c🚀Methods:`, `color: #2192FF; font-size:14px`);
-    this.log(this.listMethods);
-    this.log(`%c<-----------##----------->`, `color: #2192FF; font-size:14px`);
+    this.log("💧");
+    this.log(
+      `» %c🚀Methods of the %c${this.log.namespace}`,
+      `color: #2192FF; font-size:14px`,
+      `color: #E64848; font-size:14px`,
+      this.listMethods
+    );
+    this.log("💧\n\n\n\n\n\n");
   }
 
   // Specify config defaults that will be applied to every request. [Optional]
@@ -169,10 +173,6 @@ export class Client extends BaseClient {
     response: any,
     resolve: (args: ResponseInterface) => void
   ) {
-    this.log(`%c<-----------><----------->`, `color: #6BCB77; font-size:14px`);
-    this.log(`%c✨Response - Success`, `color: #6BCB77; font-size:14px`);
-    this.log({ response });
-    this.log(`%c<-----------##----------->`, `color: #6BCB77; font-size:14px`);
     resolve({
       status: "SUCCESS",
       data: this.configured ? this._responseFulfilled(response) : response,
@@ -189,10 +189,6 @@ export class Client extends BaseClient {
     resolve: (args: ResponseInterface) => void,
     reject: (args: any) => void
   ) {
-    this.log(`%c<-----------><----------->`, `color: #FF6B6B; font-size:14px`);
-    this.log(`%c🦠Response - Error`, `color: #FF6B6B; font-size:14px`);
-    this.log({ error });
-    this.log(`%c<-----------##----------->`, `color: #FF6B6B; font-size:14px`);
     await this._interceptorResponseHandler(
       context,
       error,
@@ -281,20 +277,6 @@ export class Client extends BaseClient {
     return new Promise(async (resolve, reject) => {
       let headerError: any = null;
 
-      this.log(
-        `%c<-----------><----------->`,
-        `color: #2192FF; font-size:14px`
-      );
-      this.log(
-        `%c🚀Request - %${methodName}%`,
-        `color: #2192FF; font-size:14px`
-      );
-      this.log({ params, metadata });
-      this.log(
-        `%c<-----------##----------->`,
-        `color: #2192FF; font-size:14px`
-      );
-
       if (!this.hasMethod(methodName)) {
         headerError = BaseErrors.ERROR.METHOD_NOT_FOUND.format({
           name: methodName,
@@ -339,8 +321,20 @@ export class Client extends BaseClient {
             params,
             this._metadata
           );
+          this._logSuccess({
+            methodName,
+            params,
+            metadata,
+            response,
+          });
           this._returnResponseSuccessful(response, resolve);
         } catch (error: any) {
+          this._logFailure({
+            methodName,
+            params,
+            metadata,
+            response: error,
+          });
           await this._returnResponseFailed(context, error, resolve, reject);
         }
       } else {
@@ -349,13 +343,75 @@ export class Client extends BaseClient {
           this._metadata,
           async (error: grpcWeb.RpcError, response: any) => {
             if (error) {
+              this._logFailure({
+                methodName,
+                params,
+                metadata,
+                response: error,
+              });
               await this._returnResponseFailed(context, error, resolve, reject);
             } else {
+              this._logSuccess({
+                methodName,
+                params,
+                metadata,
+                response,
+              });
               this._returnResponseSuccessful(response, resolve);
             }
           }
         );
       }
     });
+  }
+
+  private _logSuccess({
+    methodName,
+    params,
+    metadata,
+    response,
+  }: {
+    methodName: string;
+    params: Record<string, any>;
+    metadata?: MetadataInterface;
+    response: any;
+  }) {
+    this.log("💧");
+    this.log(
+      `\t%c🚀Request - %c${methodName}`,
+      `color: #2192FF; font-size:14px`,
+      `color: #E64848; font-size:14px`,
+      {
+        params,
+        metadata,
+      }
+    );
+    this.log(`\t%c✨Response`, `color: #6BCB77; font-size:14px`, response);
+    this.log("💧\n\n\n\n\n\n");
+  }
+
+  private _logFailure({
+    methodName,
+    params,
+    metadata,
+    response,
+  }: {
+    methodName: string;
+    params: Record<string, any>;
+    metadata?: MetadataInterface;
+    response: any;
+  }) {
+    this.log("💧");
+    this.log(
+      `\t%c🚀Request - %c${methodName}`,
+      `color: #2192FF; font-size:14px`,
+      `color: #E64848; font-size:14px`,
+      {
+        params,
+        metadata,
+      }
+    );
+    this.log(`\t%c✨Response`, `color: #FF6B6B; font-size:14px`, response);
+    this.log("💧\n\n\n\n\n\n");
   }
 }
