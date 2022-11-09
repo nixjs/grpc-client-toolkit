@@ -65,8 +65,10 @@ export class Client extends BaseClient {
     this.listMethods = getMethods(this.instance);
     this._isServiceClientPromise = promiseType;
     this.connected = true;
-    this.log(`%r🚀Methods:`, `color: #2192FF; font-size:14px`);
+    this.log(`%c<-----------><----------->`, `color: #2192FF; font-size:14px`);
+    this.log(`» %c🚀Methods:`, `color: #2192FF; font-size:14px`);
     this.log(this.listMethods);
+    this.log(`%c<-----------##----------->`, `color: #2192FF; font-size:14px`);
   }
 
   // Specify config defaults that will be applied to every request. [Optional]
@@ -88,10 +90,6 @@ export class Client extends BaseClient {
         this.setConfig(config);
       }
     }
-    this.log(
-      `%r🚀Established connection successfully to Logger`,
-      `color: #2192FF; font-size:14px`
-    );
     this.configured = true;
   }
 
@@ -171,8 +169,10 @@ export class Client extends BaseClient {
     response: any,
     resolve: (args: ResponseInterface) => void
   ) {
-    this.log(`%c✨Response - Success \n\n`, `color: #6BCB77; font-size:14px`);
-    this.log(response);
+    this.log(`%c<-----------><----------->`, `color: #6BCB77; font-size:14px`);
+    this.log(`%c✨Response - Success`, `color: #6BCB77; font-size:14px`);
+    this.log({ response });
+    this.log(`%c<-----------##----------->`, `color: #6BCB77; font-size:14px`);
     resolve({
       status: "SUCCESS",
       data: this.configured ? this._responseFulfilled(response) : response,
@@ -189,8 +189,10 @@ export class Client extends BaseClient {
     resolve: (args: ResponseInterface) => void,
     reject: (args: any) => void
   ) {
-    this.log(`%c🦠Response - Error \n\n`, `color: #FF6B6B; font-size:14px`);
-    this.log(error);
+    this.log(`%c<-----------><----------->`, `color: #FF6B6B; font-size:14px`);
+    this.log(`%c🦠Response - Error`, `color: #FF6B6B; font-size:14px`);
+    this.log({ error });
+    this.log(`%c<-----------##----------->`, `color: #FF6B6B; font-size:14px`);
     await this._interceptorResponseHandler(
       context,
       error,
@@ -278,11 +280,21 @@ export class Client extends BaseClient {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve, reject) => {
       let headerError: any = null;
+
       this.log(
-        `%r🚀Request - ${methodName} \n\n`,
+        `%c<-----------><----------->`,
+        `color: #2192FF; font-size:14px`
+      );
+      this.log(
+        `%c🚀Request - %${methodName}%`,
         `color: #2192FF; font-size:14px`
       );
       this.log({ params, metadata });
+      this.log(
+        `%c<-----------##----------->`,
+        `color: #2192FF; font-size:14px`
+      );
+
       if (!this.hasMethod(methodName)) {
         headerError = BaseErrors.ERROR.METHOD_NOT_FOUND.format({
           name: methodName,
