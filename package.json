@@ -32,7 +32,7 @@
     "publish": "lerna publish",
     "test": "lerna run test",
     "lint": "lerna run lint",
-    "build": "lerna run build --include-dependencies --stream --ignore-changes @nixjs23n6/website",
+    "build": "lerna run build --include-dependencies --stream --ignore @nixjs23n6/website",
     "format:check": "lerna run format:check",
     "storybook:build": "lerna run storybook:build",
     "prepare": "is-ci || husky install",
