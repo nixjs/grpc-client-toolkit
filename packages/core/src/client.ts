@@ -294,9 +294,10 @@ export class Client extends BaseClient {
       if (metadata) {
         this._metadata = Objectify.merge(this._metadata, metadata);
       }
+      const ourMetadata = { ...this._metadata, deadline: getDeadline(this._metadata?.deadline || BaseSeconds) }
       const context: HeaderContextInterface = {
         methodName,
-        metadata: this._metadata,
+        metadata: ourMetadata,
         params,
       };
       // Header
@@ -319,12 +320,12 @@ export class Client extends BaseClient {
         try {
           const response: any = await this.instance?.[methodName](
             params,
-            this._metadata
+            ourMetadata
           );
           this._logSuccess({
             methodName,
             params,
-            metadata,
+            metadata: ourMetadata,
             response,
           });
           this._returnResponseSuccessful(response, resolve);
@@ -332,7 +333,7 @@ export class Client extends BaseClient {
           this._logFailure({
             methodName,
             params,
-            metadata,
+            metadata: ourMetadata,
             response: error,
           });
           await this._returnResponseFailed(context, error, resolve, reject);
@@ -340,13 +341,13 @@ export class Client extends BaseClient {
       } else {
         this.instance?.[methodName](
           params,
-          this._metadata,
+          ourMetadata,
           async (error: grpcWeb.RpcError, response: any) => {
             if (error) {
               this._logFailure({
                 methodName,
                 params,
-                metadata,
+                metadata: ourMetadata,
                 response: error,
               });
               await this._returnResponseFailed(context, error, resolve, reject);
@@ -354,7 +355,7 @@ export class Client extends BaseClient {
               this._logSuccess({
                 methodName,
                 params,
-                metadata,
+                metadata: ourMetadata,
                 response,
               });
               this._returnResponseSuccessful(response, resolve);
