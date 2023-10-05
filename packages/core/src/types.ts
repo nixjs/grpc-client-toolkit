@@ -2,6 +2,11 @@ import grpcWeb from "grpc-web";
 import * as pbjs from "google-protobuf/google/protobuf/empty_pb";
 import { Interfaces, Types } from "@nixjs23n6/types";
 
+/**
+ * Date or milliseconds number
+ */
+export type Deadline = Date | number;
+
 export interface MetadataInterface extends Types.Object<any> {
   deadline?: number;
   authorization?: string;

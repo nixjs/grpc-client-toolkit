@@ -2,6 +2,7 @@ import grpcWeb from "grpc-web";
 import { decode } from "js-base64";
 import { Types } from "@nixjs23n6/types";
 import {
+  Deadline,
   MetadataResponseErrorDetailType,
   MetadataResponseInterface,
   ResponseErrorInterface,
@@ -53,4 +54,10 @@ export function getMethods(instance: any): string[] {
   } catch (error) {
     return [];
   }
+}
+
+export function getDeadline(deadline?: Deadline): number {
+  const deadlineMs = deadline instanceof Date ? deadline.getTime() : deadline;
+  const target = Date.now() + (deadlineMs ? deadlineMs : 30000);
+  return target;
 }

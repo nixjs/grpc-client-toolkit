@@ -8,21 +8,21 @@ import {
   ResponseInterface,
   ResponseErrorInterface,
 } from "./types";
-import { getResponseErrorParser, getMethods } from "./utils";
+import { getResponseErrorParser, getMethods, getDeadline } from "./utils";
 import { BaseClient } from "./baseClient";
 import { ERROR } from "./error";
 
 export class Client extends BaseClient {
-  private _requestFulfilled: any;
-  private _requestRejected: any;
+  #requestFulfilled: any;
+  #requestRejected: any;
 
-  private _responseFulfilled: any;
-  private _responseRejected: any;
-  private _metadata: MetadataInterface | undefined;
-  private _ServiceClient: any;
+  #responseFulfilled: any;
+  #responseRejected: any;
+  #metadata: MetadataInterface | undefined;
+  #ServiceClient: any;
 
-  private _isServiceClientPromise = false; // check the ServiceClient is a Promise or callback services
-  private _connected = false;
+  #isServiceClientPromise = false; // check the ServiceClient is a Promise or callback services
+  #connected = false;
 
   instance: any; // gRPC service
   configured: boolean; // config interceptors for request and response
@@ -30,49 +30,49 @@ export class Client extends BaseClient {
 
   constructor(config: HeaderConfigInterface, logger?: Interfaces.Logger) {
     super(config, logger);
-    this._metadata = config.metadata || {};
+    this.#metadata = config.metadata || {};
     this.configured = false;
-    this._connected = false;
+    this.#connected = false;
   }
 
   public get connected(): boolean {
-    return this._connected;
+    return this.#connected;
   }
 
   public set connected(v: boolean) {
-    this._connected = v;
+    this.#connected = v;
   }
 
   public interceptorHeader(
     onHeader: (header: HeaderConfigInterface | Record<string, any>) => void,
     onRejected: (error: any) => void
   ): void {
-    this._requestFulfilled = onHeader;
-    this._requestRejected = onRejected;
+    this.#requestFulfilled = onHeader;
+    this.#requestRejected = onRejected;
   }
 
   public interceptorResponse(
     onResponse: (response: any) => any,
     onRejected: (error: any) => any
   ): void {
-    this._responseFulfilled = onResponse;
-    this._responseRejected = onRejected;
+    this.#responseFulfilled = onResponse;
+    this.#responseRejected = onRejected;
   }
 
   public connect(ServiceClient: any, promiseType = true): void {
-    this._ServiceClient = ServiceClient;
+    this.#ServiceClient = ServiceClient;
     this.instance = new ServiceClient(this.config.url);
     this.listMethods = getMethods(this.instance);
-    this._isServiceClientPromise = promiseType;
+    this.#isServiceClientPromise = promiseType;
     this.connected = true;
-    this.log("💧");
+    this.log("\n\n");
     this.log(
-      `» %c🚀Methods of the %c${this.log.namespace}`,
-      `color: #2192FF; font-size:14px`,
-      `color: #E64848; font-size:14px`,
+      `» %c🚀 Methods of the %c${this.log.namespace}`,
+      `color: #2192FF; font-size:12px`,
+      `color: #E64848; font-size:12px;font-weight:bold`,
       this.listMethods
     );
-    this.log("💧\n\n\n\n\n\n");
+    this.log("\n\n");
   }
 
   // Specify config defaults that will be applied to every request. [Optional]
@@ -81,15 +81,15 @@ export class Client extends BaseClient {
       config.url &&
       config.url.toLocaleLowerCase !== this.config.url.toLocaleLowerCase()
     ) {
-      this.instance = new this._ServiceClient(config.url);
+      this.instance = new this.#ServiceClient(config.url);
     }
     this.config = Objectify.merge(this.config, config);
-    this._metadata = this.config.metadata ? this.config.metadata : {};
+    this.#metadata = this.config.metadata ? this.config.metadata : {};
   }
 
   public configure(): void {
-    if (this._requestRejected && typeof this._requestRejected === "function") {
-      const config: HeaderConfigInterface = this._requestFulfilled();
+    if (this.#requestRejected && typeof this.#requestRejected === "function") {
+      const config: HeaderConfigInterface = this.#requestFulfilled();
       if (typeof config !== "undefined") {
         this.setConfig(config);
       }
@@ -97,7 +97,7 @@ export class Client extends BaseClient {
     this.configured = true;
   }
 
-  private async _interceptorHeaderHandler(
+  async #interceptorHeaderHandler(
     context: {
       methodName: string;
       metadata: MetadataInterface | undefined;
@@ -111,10 +111,10 @@ export class Client extends BaseClient {
     let err: ResponseErrorInterface = error;
     if (
       this.configured &&
-      this._requestRejected &&
-      typeof this._requestRejected === "function"
+      this.#requestRejected &&
+      typeof this.#requestRejected === "function"
     ) {
-      const log: any = await this._requestRejected({
+      const log: any = await this.#requestRejected({
         context,
         error,
       });
@@ -129,7 +129,7 @@ export class Client extends BaseClient {
     return true;
   }
 
-  private async _interceptorResponseHandler(
+  async #interceptorResponseHandler(
     context: {
       methodName: string;
       metadata: MetadataInterface | undefined;
@@ -144,10 +144,10 @@ export class Client extends BaseClient {
     let err: grpcWeb.RpcError = error;
     if (
       this.configured &&
-      this._responseRejected &&
-      typeof this._responseRejected === "function"
+      this.#responseRejected &&
+      typeof this.#responseRejected === "function"
     ) {
-      const log: any = await this._responseRejected({
+      const log: any = await this.#responseRejected({
         context,
         error,
       });
@@ -169,17 +169,17 @@ export class Client extends BaseClient {
     return true;
   }
 
-  private async _returnResponseSuccessful(
+  async #returnResponseSuccessful(
     response: any,
     resolve: (args: ResponseInterface) => void
   ) {
     resolve({
       status: "SUCCESS",
-      data: this.configured ? this._responseFulfilled(response) : response,
+      data: this.configured ? this.#responseFulfilled(response) : response,
     });
   }
 
-  private async _returnResponseFailed(
+  async #returnResponseFailed(
     context: {
       methodName: string;
       metadata: MetadataInterface | undefined;
@@ -189,7 +189,7 @@ export class Client extends BaseClient {
     resolve: (args: ResponseInterface) => void,
     reject: (args: any) => void
   ) {
-    await this._interceptorResponseHandler(
+    await this.#interceptorResponseHandler(
       context,
       error,
       (rejected) => reject(rejected),
@@ -202,7 +202,7 @@ export class Client extends BaseClient {
         resolve({
           status: "SUCCESS",
           data: this.configured
-            ? this._responseFulfilled(restoreSessionResponse)
+            ? this.#responseFulfilled(restoreSessionResponse)
             : restoreSessionResponse,
         })
     );
@@ -232,8 +232,14 @@ export class Client extends BaseClient {
       if (metadataOverride) {
         ourMetadata = Objectify.merge(metadata, metadataOverride);
       }
+
+      if (this.#metadata?.deadline) {
+        ourMetadata = Objectify.merge(ourMetadata, {
+          deadline: getDeadline(this.#metadata?.deadline),
+        });
+      }
       // Response
-      if (this._isServiceClientPromise) {
+      if (this.#isServiceClientPromise) {
         try {
           const response: any = await this.instance?.[methodName](
             params,
@@ -283,24 +289,29 @@ export class Client extends BaseClient {
         });
       }
       if (
-        this._requestFulfilled &&
-        typeof this._requestFulfilled === "function"
+        this.#requestFulfilled &&
+        typeof this.#requestFulfilled === "function"
       ) {
-        const config: HeaderConfigInterface = this._requestFulfilled();
+        const config: HeaderConfigInterface = this.#requestFulfilled();
         if (typeof config !== "undefined") {
           this.setConfig(config);
         }
       }
       if (metadata) {
-        this._metadata = Objectify.merge(this._metadata, metadata);
+        this.#metadata = Objectify.merge(this.#metadata, metadata);
+      }
+      if (this.#metadata?.deadline) {
+        this.#metadata = Objectify.merge(this.#metadata, {
+          deadline: getDeadline(this.#metadata?.deadline),
+        });
       }
       const context: HeaderContextInterface = {
         methodName,
-        metadata: this._metadata,
+        metadata: this.#metadata,
         params,
       };
       // Header
-      const headerResolved: any = await this._interceptorHeaderHandler(
+      const headerResolved: any = await this.#interceptorHeaderHandler(
         context,
         headerError,
         (rejected) => reject(rejected),
@@ -315,49 +326,49 @@ export class Client extends BaseClient {
         return resolve(headerResolved);
       }
       // Response
-      if (this._isServiceClientPromise) {
+      if (this.#isServiceClientPromise) {
         try {
           const response: any = await this.instance?.[methodName](
             params,
-            this._metadata
+            this.#metadata
           );
-          this._logSuccess({
+          this.#logSuccess({
             methodName,
             params,
-            metadata,
+            metadata: this.#metadata,
             response,
           });
-          this._returnResponseSuccessful(response, resolve);
+          this.#returnResponseSuccessful(response, resolve);
         } catch (error: any) {
-          this._logFailure({
+          this.#logFailure({
             methodName,
             params,
-            metadata,
+            metadata: this.#metadata,
             response: error,
           });
-          await this._returnResponseFailed(context, error, resolve, reject);
+          await this.#returnResponseFailed(context, error, resolve, reject);
         }
       } else {
         this.instance?.[methodName](
           params,
-          this._metadata,
+          this.#metadata,
           async (error: grpcWeb.RpcError, response: any) => {
             if (error) {
-              this._logFailure({
+              this.#logFailure({
                 methodName,
                 params,
-                metadata,
+                metadata: this.#metadata,
                 response: error,
               });
-              await this._returnResponseFailed(context, error, resolve, reject);
+              await this.#returnResponseFailed(context, error, resolve, reject);
             } else {
-              this._logSuccess({
+              this.#logSuccess({
                 methodName,
                 params,
-                metadata,
+                metadata: this.#metadata,
                 response,
               });
-              this._returnResponseSuccessful(response, resolve);
+              this.#returnResponseSuccessful(response, resolve);
             }
           }
         );
@@ -365,37 +376,26 @@ export class Client extends BaseClient {
     });
   }
 
-  private _logSuccess({
+  #logRequest({
     methodName,
     params,
     metadata,
-    response,
   }: {
     methodName: string;
     params: Record<string, any>;
     metadata?: MetadataInterface;
-    response: any;
   }) {
-    this.log("💧");
+    this.log.namespace = this.logger?.namespace || "";
     this.log(
-      `\t%c🚀Request - %c${methodName}`,
-      `color: #2192FF; font-size:14px`,
-      `color: #E64848; font-size:14px`,
-      {
-        params,
-        metadata,
-      }
+      `%c🚀 REQUEST - %c${methodName}`,
+      `color: #2192FF; font-size:12px;font-weight:bold`,
+      `color: #E64848; font-size:12px`
     );
-    this.log(
-      `\t%c✨Response`,
-      `color: #6BCB77; font-size:14px`,
-      response,
-      response && response?.toObject()
-    );
-    this.log("💧\n\n\n\n\n\n");
+    this.log.namespace = "";
+    this.log({ params, metadata });
   }
 
-  private _logFailure({
+  #logSuccess({
     methodName,
     params,
     metadata,
@@ -406,17 +406,51 @@ export class Client extends BaseClient {
     metadata?: MetadataInterface;
     response: any;
   }) {
-    this.log("💧");
+    this.log("\n\n");
+    // Request
+    this.#logRequest({ methodName, params, metadata });
+    // Response
+    this.log.namespace = this.logger?.namespace || "";
+    this.log.color = this.logger?.color || "#f43f5e";
     this.log(
-      `\t%c🚀Request - %c${methodName}`,
-      `color: #2192FF; font-size:14px`,
-      `color: #E64848; font-size:14px`,
-      {
-        params,
-        metadata,
-      }
+      `%c✨ RESPONSE`,
+      `color: #6BCB77; font-size:12px;font-weight:bold`
     );
-    this.log(`\t%c✨Response`, `color: #FF6B6B; font-size:14px`, response);
+    this.log.namespace = "";
+    this.log.color = "";
+    this.log(`\t\t%cOriginal`, `color: #6BCB77; font-size:10px`, response);
+    this.log(
+      `\t\t%cFormatted`,
+      `color: #6BCB77; font-size:10px`,
+      response && response?.toObject()
+    );
+    this.log("\n\n");
+  }
+
+  #logFailure({
+    methodName,
+    params,
+    metadata,
+    response,
+  }: {
+    methodName: string;
+    params: Record<string, any>;
+    metadata?: MetadataInterface;
+    response: any;
+  }) {
+    this.log("\n\n");
+    // Request
+    this.#logRequest({ methodName, params, metadata });
+    // Response
+    this.log.namespace = this.logger?.namespace || "";
+    this.log.color = this.logger?.color || "#f43f5e";
+    this.log(
+      `%c✨ RESPONSE`,
+      `color: #FF6B6B; font-size:12px;font-weight:bold`
+    );
+    this.log.namespace = "";
+    this.log.color = "";
+    this.log(`\t\t%cOriginal`, `color: #FF6B6B; font-size:10px`, response);
     this.log("💧\n\n\n\n\n\n");
   }
 }
